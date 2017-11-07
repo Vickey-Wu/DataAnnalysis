@@ -5,9 +5,9 @@
 # @author：vickey-wu
 
 # practice of K-Means algorithm
-#
-# import pandas as pd
-# from sklearn.cluster import KMeans
+
+import pandas as pd
+from sklearn.cluster import KMeans
 
 
 input_flie = "E:/pythonProcess/chapter5/demo/data/consumption_data.xls"
