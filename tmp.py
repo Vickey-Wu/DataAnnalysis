@@ -2,31 +2,43 @@
 # -*- coding:utf-8 -*-
 # socket server.py
 
+p = "vickey"
+shift_nums = 168
+for ii in p:
+    print(ord(ii))
+# print(int(str(shift_nums)[1]))
+def vickey_ecrypt(p, shift_nums):
+    tmp_l = []
+    for n in range(len(str(shift_nums))):
+        for s in p:
+            bit_oper = ord(s)
+            if int(str(shift_nums)[n]) <= 5:
+                bit_oper <<= int(str(shift_nums)[n])
+            else:
+                bit_oper >>= int(str(shift_nums)[n])
+            encrypt_str = unichr(bit_oper)
+            # print(type(encrypt_str), encrypt_str)
+            tmp_l.append(encrypt_str)
+        p = "".join(tmp_l)
+        tmp_l = []
+    return p
 
-#socket通信客户端
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
+vickey_ecrypt(p, shift_nums)
 
-import socket
+def vickey_decrypt(p, shift_nums):
+    pd = vickey_ecrypt(p, shift_nums)
+    tmp_l = []
+    for n in range(len(str(shift_nums))):
+        for s in p:
+            bit_oper = ord(s)
+            if int(str(shift_nums)[n]) > 5:
+                bit_oper <<= int(str(shift_nums)[n])
+            else:
+                bit_oper >>= int(str(shift_nums)[n])
+            encrypt_str = unichr(bit_oper)
+            # print(type(encrypt_str), encrypt_str)
+            tmp_l.append(encrypt_str)
+        p = "".join(tmp_l)
+        tmp_l = []
+    return p
 
-
-def main():
-    host = "127.0.0.1"
-    port = 5001
-
-    server = ("127.0.0.1", 5000)
-
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.bind((host, port))
-
-    message = input("-->")
-    while message != "q":
-        s.sendto(bytes(message, "utf-8"), server)
-        data, addr = s.recvfrom(1024)
-        print("Received from server: " + str(data))
-        message = input("-->")
-    s.close()
-
-
-if __name__ == '__main__':
-    main()
