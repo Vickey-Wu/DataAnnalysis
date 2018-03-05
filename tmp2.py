@@ -1,42 +1,24 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
-# @date: 2017/11/4 23:08 
+# @date: 2017/11/4 23:08
 # @name: tmp2
 # @author：vickey-wu
 
+import os
+import re
 
-#服务器端
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
-#!/usr/bin/env python
-# -*- coding: UTF-8 -*-
 
-import socket
+def print_all_file_path(init_file_path, keyword):
+    for current_dir, included_dir, included_file in os.walk(init_file_path):
+        if included_file:
+            for file in included_file:
+                if re.search(keyword, file):
+                    print(current_dir + "\\" + file)
 
 
 def main():
-    host = "127.0.0.1"
-    port = 5000
-
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    s.bind((host, port))
-
-    print("Server started")
-    while True:
-        data, addr = s.recvfrom(1024)
-        print("Message from: " + str(addr))
-        print("From connected user: " + str(data))
-        # data =  str(data).upper()
-        if str(data) == "hello":
-            print("Sending: " + str(data))
-            s.sendto(bytes(str(data), "utf-8"), addr)
-        # else:
-        #     s.sendto(bytes(str(data), "utf-8"), addr)
-    s.close()
+    print_all_file_path("E:\pythonProcess\DataAnalysis", ".py")
 
 
 if __name__ == '__main__':
-    print("socket server running...")
     main()
-
-
